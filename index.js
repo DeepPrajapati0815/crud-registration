@@ -29,11 +29,12 @@ const MONGO_URI = process.env.MONGO_URI;
 
 app.use(express.static(path.resolve(path.dirname(__filename), "build")));
 
-app.get("/", function (req, res) {
+app.use("/api", userRouter);
+
+app.get("/*", function (req, res) {
+  console.log("rendering");
   res.sendFile(path.join(path.dirname(__filename), "build", "index.html"));
 });
-
-app.use("/api", userRouter);
 
 app.listen(PORT, () => {
   console.log("listening on port " + PORT);
